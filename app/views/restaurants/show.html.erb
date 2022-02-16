@@ -1,15 +1,29 @@
-<h1>Restaurant</h1>
+<h1><%= @restaurant.name %></h1>
 <br>
-<%= render "form", restaurant: @restaurant %>
+<h2>Address: </h2>
+<p><%= @restaurant.address %></p>
 <br>
-<%= link_to 'Back', restaurants_path %>
+<h2>Phone Number: </h2>
+<p><%= @restaurant.phone_number %></p>
+<br>
+<h2>Category: </h2>
+<p><%= @restaurant.category.capitalize %></p>
+<br>
+<%= link_to 'Back to home', restaurants_path, class: "btn btn-success"%>
+<br>
 <br>
 <h2>Reviews</h2>
+<br>
 <ul>
+  <% if @restaurant.reviews.empty? %>
+    <li>Be the first to leave a review!</li>
+  <% else %>
     <% @restaurant.reviews.each do |review| %>
-      <li><%= review.content %> | <%=  review.rating %></li>
-
+      <li><%= review.content %> | <%=  '⭐' * review.rating %></li>
+      <h1><%= review.reviewer %></h1>
+      <br>
     <% end %>
+  <% end %>
 </ul>
 <br>
-<%= link_to 'Leave a review', new_restaurant_review_path(@restaurant) %>
+<%= link_to 'Leave a review', new_restaurant_review_path(@restaurant), class: "btn btn-warning"%>
